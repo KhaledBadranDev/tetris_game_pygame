@@ -1,20 +1,34 @@
-#######################
-#AUTHOR: KHALED BADRAN
-#######################
 
 from util import *
+import random
 import time
+
+
+def update_graphics():
+    #background and text
+    DISPLAY_SCREEN.blit(background_img, (0, 0))
+    pygame.draw.rect(DISPLAY_SCREEN , black, (off_set_x, off_set_y, playing_field_width, playing_field_height) )
+    font = pygame.font.SysFont("comicsansms", 48)
+    rendered_text = font.render("Tetris", 1, orange)
+    DISPLAY_SCREEN.blit(rendered_text, (width/2-80, 10))
 
 
 
 def start_game():    
-    pass
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+        update_graphics()        
+        pygame.display.update()
 
 
 def introduction():
     button_width = 200
     button_height = 80
-    # width/2-button_width/2: to centre the buttons in the middle of the display screen
+    #width/2-button_width/2
     play_button = Button(blue, orange, -400, height/2, button_width, button_height, 32, black, white, "PLAY")
     quit_button = Button(blue, orange, width+200, height/2+button_height+10, button_width,button_height, 32, black, white, "QUIT")
     
@@ -22,7 +36,7 @@ def introduction():
     rendered_text = font.render("Tetris", 1, orange)
     rendered_text_y = height
 
-    # to draw the "Tetris" text in an animated way.
+    #to draw the "Tetris" text in an animated way.
     while rendered_text_y > 10: 
         DISPLAY_SCREEN.blit(background_img, (0, 0))
 
@@ -35,7 +49,7 @@ def introduction():
         DISPLAY_SCREEN.blit(rendered_text, (width/2-80, rendered_text_y))
         pygame.display.update()
     
-    # to draw the buttons in an animated way.
+    #to draw the buttons in an animated way.
     while play_button.x < width/2-button_width/2 or quit_button.x > width/2-button_width/2:
         DISPLAY_SCREEN.blit(background_img, (0, 0))
         DISPLAY_SCREEN.blit(rendered_text, (width/2-80, rendered_text_y))

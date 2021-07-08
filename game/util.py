@@ -1,6 +1,3 @@
-#######################
-#AUTHOR: KHALED BADRAN
-#######################
 
 import pygame
 import sys
@@ -16,6 +13,11 @@ height = 750
 DISPLAY_SCREEN = pygame.display.set_mode((width, height))
 pygame.display.set_caption(" Tetris")
 
+off_set_x = 10
+off_set_y = 80
+playing_field_width = 330  # meaning 330 // 10 = 33 width per block
+playing_field_height = 660  # meaning 600 // 20 = 33 height per blo ck
+tile_length = 33 # tile is a square
 
 #colors
 green = (0, 255, 255)
@@ -25,7 +27,20 @@ black = (0, 0, 0)
 gray = (95, 95, 96) 
 orange  = (249, 87, 0)  
 
+#block colors
+cobalt_blue = (3, 65, 174)
+green_apple  = (114, 203, 59)
+cyber_yellow= (255, 213, 0)
+beer = (255, 151, 28)
+ryb_red = (255, 50, 19)
+purple = (128, 0, 128)
 
+
+block_colors = (cobalt_blue, blue, green_apple, purple, cyber_yellow, beer, ryb_red)
+
+# shapes of Tetris blocks
+shapes = ("i_block", "l_block", "j_block", "o_block", "s_block", "t_block", "z_block")
+directions = ("vertical_1", "vertical_2", "horizontal_1", "horizontal_2")
 
 background_img = pygame.image.load("resources/images/background_img.jpg")      
 
@@ -127,4 +142,3 @@ class Button:
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 return True
         return False
-
