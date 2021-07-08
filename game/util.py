@@ -1,3 +1,6 @@
+#######################
+#AUTHOR: KHALED BADRAN
+#######################
 
 import pygame
 import sys
@@ -142,3 +145,33 @@ class Button:
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 return True
         return False
+
+
+class Tile:
+    def __init__(self, x, y, color = black):
+        self.x = x
+        self.y = y
+
+        self.color = color
+
+        self.empty = True
+
+
+class PlayingField():
+    def __init__(self):
+        self.tiles = []
+        self.occupied_tiles = []
+        self.__init_field()
+
+
+    def __init_field(self):    
+        y = off_set_y
+        for i in range(20): #rows
+            x = off_set_x
+            row = []
+            for j in range(10): #cols
+                tile_to_add = Tile(x, y, black) #
+                row.append(tile_to_add)
+                x += tile_length
+            self.tiles.append(row)
+            y += tile_length
