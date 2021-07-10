@@ -7,13 +7,44 @@ import random
 import time
 
 
-def update_graphics(playing_field):
+def block_is_falling(block, playing_field):
+    if can_fall(block, playing_field):
+        for tile in block.tiles:
+            tile.y += tile_length
+        clock.get_rawtime()
+        clock.tick(8)
+
+def can_fall(current_block, playing_field):
+    for tile in playing_field.occupied_tiles:
+        # if current_block.tiles[0].x == tile.x and current_block.tiles[0].y == tile.y: 
+        #     return False
+        # if current_block.tiles[0].x == tile.x and current_block.tiles[0].y+tile_length == tile.y:
+        #     return False
+        for block_tile in current_block.tiles:
+            if block_tile.y+tile_length == tile.y and block_tile.x == tile.x:
+                return False         
+    if current_block.tiles[0].y >= playing_field_height+tile_length:
+        return False  
+
+    return True
+
+def update_graphics(block, playing_field):
     #background and text
     DISPLAY_SCREEN.blit(background_img, (0, 0))
     pygame.draw.rect(DISPLAY_SCREEN , black, (off_set_x, off_set_y, playing_field_width, playing_field_height) )
     font = pygame.font.SysFont("comicsansms", 48)
     rendered_text = font.render("Tetris", 1, orange)
     DISPLAY_SCREEN.blit(rendered_text, (width/2-80, 10))
+
+    #tiles
+    for tile in playing_field.occupied_tiles:
+        pygame.draw.rect(DISPLAY_SCREEN , tile.color, (tile.x, tile.y, tile_length, tile_length) )
+
+    #blocks
+    for tile in block.tiles:
+        if tile.y >= off_set_y:
+            pygame.draw.rect(DISPLAY_SCREEN , tile.color, (tile.x, tile.y, tile_length, tile_length) )
+
 
     #borders
     pygame.draw.line(DISPLAY_SCREEN , orange, (off_set_x-2, off_set_y-3), (playing_field_width+off_set_x+1, off_set_y-3), 4) # horizontal line top
@@ -39,10 +70,16 @@ def update_graphics(playing_field):
 
 def start_game():    
     playing_field = PlayingField()
+    rand_index = random.randint(0, 6)
+    block = Block(shapes[rand_index], block_colors[rand_index])
+
 
     while True:
-        update_graphics(playing_field)        
+        update_graphics(block, playing_field)        
         manage_events()
+
+        block_is_falling(block, playing_field)
+        update_graphics(block, playing_field)
 
         pygame.display.update()
 
