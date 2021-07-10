@@ -175,3 +175,24 @@ class PlayingField():
                 x += tile_length
             self.tiles.append(row)
             y += tile_length
+
+class Block:
+    def __init__(self, shape:str, color = black):
+        self.shape = shape
+        self.color = color
+
+        self.active = True
+
+        self.direction = directions[0] #vertical_1
+
+        #                         tile1                                       , tile2            , tile3            , tile4
+        self.tiles = [ Tile(off_set_x+playing_field_width/2-tile_length, off_set_y, self.color), Tile(0, 0, color), Tile(0, 0, color), Tile(0, 0, color)]
+        
+        self.__init_shape() 
+        for tile in self.tiles:
+            tile.empty = False
+        #shapes = ("i_block", "l_block", "j_block", "o_block", "s_block", "t_block", "z_block")
+        #              | 4      |4         4|       3--4          3--4      -4        4--3
+        #              | 3      ---       ---        --          --        ---           --
+        #              | 2      312       312        12          21        312           12
+        #              | 1
