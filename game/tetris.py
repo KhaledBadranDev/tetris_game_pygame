@@ -16,10 +16,6 @@ def block_is_falling(block, playing_field):
 
 def can_fall(current_block, playing_field):
     for tile in playing_field.occupied_tiles:
-        # if current_block.tiles[0].x == tile.x and current_block.tiles[0].y == tile.y: 
-        #     return False
-        # if current_block.tiles[0].x == tile.x and current_block.tiles[0].y+tile_length == tile.y:
-        #     return False
         for block_tile in current_block.tiles:
             if block_tile.y+tile_length == tile.y and block_tile.x == tile.x:
                 return False         
@@ -91,7 +87,63 @@ def get_new_block(current_block, playing_field):
     
     return (new_block, True)
 
+def is_game_over(current_block, playing_field):
+    for tile in playing_field.occupied_tiles:
+        if tile.y <= off_set_y:
+            for tile in playing_field.occupied_tiles:
+                pygame.draw.rect(DISPLAY_SCREEN , tile.color, (tile.x, tile.y, tile_length, tile_length) )
+            pygame.display.update()
+            print("Game Over")
+            time.sleep(2)   
+            start_game()
+
+# for moving the tetris block
 ########################################
+def move_left(block, playing_field):
+    if can_move_left(block, playing_field):
+        for tile in block.tiles:
+            tile.x -= tile_length
+
+
+def move_right(block, playing_field):
+    if can_move_right(block, playing_field):
+        for tile in block.tiles:
+            tile.x += tile_length
+
+
+def can_move_left(block, playing_field):
+    # whether inside the playing field or not
+    for tile in block.tiles:
+        if tile.x <= off_set_x:
+            return False
+    # whether adjacent field_tiles are occupied or not
+    for block_tile in block.tiles:
+        for occupied_tile in playing_field.occupied_tiles:
+            if block_tile.x - tile_length == occupied_tile.x and block_tile.y == occupied_tile.y:
+                return False
+
+    return True
+    
+
+def can_move_right(block, playing_field):
+    # whether inside the playing field or not
+    for tile in block.tiles:
+        if tile.x + tile_length >= off_set_x+playing_field_width:
+            return False
+    # whether adjacent field_tiles are occupied or not
+    for block_tile in block.tiles:
+        for occupied_tile in playing_field.occupied_tiles:
+            if block_tile.x + tile_length == occupied_tile.x and block_tile.y  == occupied_tile.y:
+                return False
+
+    return True
+
+
+def rotate(block, playing_field):
+    pass
+    #TODO
+
+#########################################
 
 
 def start_game():    
@@ -104,23 +156,29 @@ def start_game():
         (block, new) = get_new_block(block, playing_field)
 
         update_graphics(block, playing_field)        
-        manage_events()
+        manage_events(block, playing_field)
 
         block_is_falling(block, playing_field)
         update_graphics(block, playing_field)
 
+        is_game_over(block, playing_field)
+
         pygame.display.update()
 
 
-def manage_events():
+def manage_events(block, playing_field):
      for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
             
             if event.type == pygame.KEYDOWN:
-                pass
-                #TODO
+                if event.key == pygame.K_LEFT:
+                    #move the block to the left
+                    move_left(block, playing_field)
+                elif event.key == pygame.K_RIGHT:
+                    #move the block to the right
+                    move_right(block, playing_field)
 
 
 def introduction():
