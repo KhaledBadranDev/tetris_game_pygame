@@ -65,6 +65,32 @@ def update_graphics(block, playing_field):
     pygame.display.update()
 
 
+def get_new_block(current_block, playing_field):
+    if can_fall(current_block, playing_field): return (current_block, False)
+    
+    for block_tile in current_block.tiles: 
+        found = False
+        for row in playing_field.tiles:
+            if not found:
+                for tile in row:
+                    if block_tile.x == tile.x and block_tile.y == tile.y:
+                        tile.x = block_tile.x
+                        tile.y = block_tile.y
+                        tile.color = block_tile.color
+                        tile.empty = False
+
+                        playing_field.occupied_tiles.append(tile)
+                        found = True
+                        break
+
+    rand_index1 = random.randint(0, 6)
+    rand_index2 = random.randint(0, 6)
+    
+    clock.tick(2)
+    new_block = Block(shapes[rand_index1], block_colors[rand_index2])
+    
+    return (new_block, True)
+
 ########################################
 
 
@@ -75,6 +101,8 @@ def start_game():
 
 
     while True:
+        (block, new) = get_new_block(block, playing_field)
+
         update_graphics(block, playing_field)        
         manage_events()
 
