@@ -1,0 +1,12 @@
+
+*background_license:
+    copied Tag:
+        <a href='https://www.freepik.com/photos/background'>Background photo created by freepik - www.freepik.com</a>
+
+    url:
+        https://www.freepik.com/free-photo/natural-green-palm-leaves-corner-white-background_4760370.htm#page=1&query=simple&position=21
+
+
+*icon_license:
+    url:
+        https://www.flaticon.com/free-icon/tetris_1138876#
