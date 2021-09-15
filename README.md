@@ -1,6 +1,7 @@
 
 ## AUTHOR: Khaled Badran
 <br>
+<br>
 
 # TETRIS
 
@@ -16,3 +17,16 @@ so it is an excellent project for the intermediate and advanced level.
 - pygame
 - knowledge of python
 - knowledge of the concepts of object oriented programming 
+<br>
+<br>
+
+# Contributors:
+- Khaled Badran (Programming Gym) <gym4programming@gmail.com>
+<br>
+<br>
+
+
+# License & Copyright:
+© Khaled Badran (Programming Gym)
+<br>
+Licensed under the [MIT License](LICENSE)
