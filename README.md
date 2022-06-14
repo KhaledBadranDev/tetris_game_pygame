@@ -24,9 +24,3 @@ so it is an excellent project for the intermediate and advanced level.
 - Khaled Badran (Programming Gym) <gym4programming@gmail.com>
 <br>
 <br>
-
-
-# License & Copyright:
-© Khaled Badran (Programming Gym)
-<br>
-Licensed under the [MIT License](LICENSE)
